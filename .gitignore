@@ -33,3 +33,5 @@
 
 #Ignoring .json files
 *.json
+#Ignore build files
+build
