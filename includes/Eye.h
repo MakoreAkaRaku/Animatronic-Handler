@@ -21,6 +21,11 @@ public:
     bool Dettach();
     ~Eye();
 private:
+    //Number of SERVOS used to handle the eye behaviour.
+    static const size_t NUM_OF_SERVOS_USED = 2;
+    // First idx is de horizontal servo controller.
+    // Second idx is the vertical servo controller.
+    Servo usedServos[NUM_OF_SERVOS_USED];
+    // Eye identifier; tells which eye is the one is being used. 
     EYE_ID mId = NONE;
-    uint8_t assignedPins[2];
 };

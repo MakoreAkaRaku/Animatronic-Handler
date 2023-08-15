@@ -9,6 +9,11 @@
         else
         {
             mId = eye_info.first;
+            for (size_t i = 0; i < NUM_OF_SERVOS_USED; i++)
+            {
+                usedServos[i] = Servo();
+            }
+            
         }
     }
     Eye::EYE_ID Eye::GetIdentifier() const
