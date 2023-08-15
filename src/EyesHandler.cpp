@@ -2,7 +2,7 @@
 #include "../includes/EyesHandler.h"
 bool EyesHandler::isAvailable = false;
 
-bool EyesHandler::IsAvailable() const
+bool EyesHandler::IsAvailable()
 {
     return isAvailable;
 }
