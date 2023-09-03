@@ -9,7 +9,7 @@
         else
         {
             mId = eye_info.first;
-            for (size_t i = 0; i < NUM_OF_SERVOS_USED; i++)
+            for (uint8_t i = 0; i < NUM_OF_SERVOS_USED; i++)
             {
                 usedServos[i] = Servo();
             }
@@ -32,3 +32,7 @@
     {}
     bool Eye::Dettach()
     {}
+    Eye::~Eye()
+    {
+
+    }
