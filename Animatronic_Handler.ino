@@ -28,7 +28,8 @@ void setup()
         error_code = 3;
     }
 
-    if(error_code){
+    if(error_code)
+    {
         Serial.print("Something went wrong");
         pinMode(13,OUTPUT);
         //Letting know that an error occurred.
