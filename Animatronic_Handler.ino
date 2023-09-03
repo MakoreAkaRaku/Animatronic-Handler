@@ -1,28 +1,48 @@
-#include "includes/ServoHandler.h"
-ServoMotor* myServoM;
-ServoMotor* my2ndServoM;
-// 2 servo / ojo
-// 
+#include "includes/EyesHandler.h"
+/** TYPE ERROR CODE BLINK:
+ * _____________________________
+ * |    CODE    ||  NºBLINKS    |
+ * |----------------------------|
+ * | NO_ATTACH  ||      3       |
+ * |
+ * |
+ * |
+ * |
+ */
 void setup()
 {
     Serial.begin(9600);
-    try
+    uint8_t error_code =0;
+    pair<Eye::EYE_ID,uint8_t[2]> eyes[2] ={
+        {
+            Eye::LEFT,
+            8, 9
+        },
+        {
+            Eye::RIGHT,
+            10, 11
+        }
+    };
+    if (!EyesHandler::Attach(eyes))
     {
-    myServoM = new ServoMotor(5);
-    my2ndServoM = new ServoMotor(5);
-    }
-    catch(size_t writtenBytes)
-    {
-        Serial.println("Could not initialize some ServoMotors");
+        error_code = 3;
     }
 
-    pinMode(13,OUTPUT);
+    if(error_code){
+        Serial.print("Something went wrong");
+        pinMode(13,OUTPUT);
+        //Letting know that an error occurred.
+        for (uint8_t i = 0; i < error_code; i++)
+        {
+                delay(2000);
+                digitalWrite(13,HIGH);
+                delay(2000);
+                digitalWrite(13,LOW);
+        }
+    }
 }
 
 void loop()
 {
-    digitalWrite(13,HIGH);
-    delay(1000);
-    digitalWrite(13,LOW);
-    delay(1000);
+
 }
