@@ -12,6 +12,7 @@
 void setup()
 {
     Serial.begin(9600);
+    pinMode(ERROR_PIN,OUTPUT);
     uint8_t error_code =0;
     uint8_t pinIds[3] = { 2, 3, 6 };
     if (!EyesHandler::Attach(pinIds))
@@ -21,15 +22,13 @@ void setup()
 
     if(error_code)
     {
-        Serial.print("Something went wrong");
-        pinMode(13,OUTPUT);
         //Letting know that an error occurred.
         for (uint8_t i = 0; i < error_code; i++)
         {
             delay(2000);
-            digitalWrite(13,HIGH);
+            digitalWrite(ERROR_PIN,HIGH);
             delay(2000);
-            digitalWrite(13,LOW);
+            digitalWrite(ERROR_PIN,LOW);
         }
     }
 }
