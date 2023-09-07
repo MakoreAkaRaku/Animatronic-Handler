@@ -1,6 +1,7 @@
 #pragma once
 #include "utils.h"
 #include <Servo.h>
+#include <stdio.h>
 
 /// @brief Class to handle the eyes movement.
 class EyesHandler

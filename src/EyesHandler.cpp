@@ -18,7 +18,7 @@ bool EyesHandler::Attach(uint8_t pinIds[NUM_OF_SERVOS_USED])
         //if attaching servos applied on the board exceeds the max ammount return false.
         if( usedServo[i].attach(pinIds[i]) == MAX_SERVOS)
         {
-            Serial.println("EyesHandler: Maximum amount of servos already in use!");
+            printf("EyesHandler: Maximum amount of servos already in use!");
             isAvailable = false;
             break;
         }
