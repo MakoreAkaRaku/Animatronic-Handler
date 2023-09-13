@@ -28,7 +28,7 @@ class EyesHandler
 
   EyesHandler() = delete;
   ~EyesHandler() = delete;
-  static void MoveEyes(EyeMovement *movements);
+  static void MoveEyes(EyeMovement movements[]);
   static bool Attach(uint8_t pinIds[NUM_OF_SERVOS_USED]);
   static bool Dettach();
   /// @brief Checks if handler is available.
