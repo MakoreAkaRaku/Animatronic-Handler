@@ -11,9 +11,24 @@ class EyesHandler
   /// Number of Servos used to handle the entire eyes behaviour.
   static const uint8_t NUM_OF_SERVOS_USED = 3;
   public:
+  
+  enum MoveID
+  {
+    NONE=0,
+    HORIZONTAL,
+    VERTICAL,
+    EYELID
+  };
+
+  struct EyeMovement
+  {
+    MoveID moveType;
+    uint8_t degree;
+  };
+
   EyesHandler() = delete;
   ~EyesHandler() = delete;
-  static void MoveEyes(uint16_t degrees);
+  static void MoveEyes(EyeMovement *movements);
   static bool Attach(uint8_t pinIds[NUM_OF_SERVOS_USED]);
   static bool Dettach();
   /// @brief Checks if handler is available.
