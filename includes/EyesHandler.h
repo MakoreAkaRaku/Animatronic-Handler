@@ -35,9 +35,10 @@ class EyesHandler
   /// @return true if is available, otherwise false.
   static bool IsAvailable();
   private:
-  static bool isAvailable;
-  // First idx is de horizontal servo controller.
-  // Second idx is the vertical servo controller.
-  // Third idx is eyelids servo controller.
-  static Servo usedServo[NUM_OF_SERVOS_USED];
+    bool AreValidMoves(EyeMovement movements[], uint8_t numOfMoves);
+    static bool isAvailable;
+    // First idx is de horizontal servo controller.
+    // Second idx is the vertical servo controller.
+    // Third idx is eyelids servo controller.
+    static Servo usedServo[NUM_OF_SERVOS_USED];
 };
