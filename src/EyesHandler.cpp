@@ -1,9 +1,8 @@
 #pragma once
 #include "../includes/EyesHandler.h"
-
 bool EyesHandler::isAvailable = false;
-//Initializing static servos.
-Servo EyesHandler::usedServo[]={ Servo(), Servo(), Servo()}; 
+// Initializing static servos.
+Servo EyesHandler::usedServo[] = {Servo(), Servo(), Servo()};
 
 bool EyesHandler::IsAvailable()
 {
@@ -15,30 +14,51 @@ bool EyesHandler::Attach(uint8_t pinIds[NUM_OF_SERVOS_USED])
     isAvailable = true;
     for (uint8_t i = 0; i < NUM_OF_SERVOS_USED; i++)
     {
-        //if attaching servos applied on the board exceeds the max ammount return false.
-        if( usedServo[i].attach(pinIds[i]) == MAX_SERVOS)
+        // if attaching servos applied on the board exceeds the max ammount return false.
+        if (usedServo[i].attach(pinIds[i]) == MAX_SERVOS)
         {
-            printf("EyesHandler: Maximum amount of servos already in use!");
             isAvailable = false;
             break;
         }
     }
-    //everything is correctly attached
+    // everything is correctly attached
     return isAvailable;
 }
 
-void EyesHandler::MoveEyes(EyeMovement movements[])
+bool EyesHandler::MoveEyes(EyeMovement em)
 {
-    uint8_t numOfMoves = sizeof(movements)/sizeof(EyeMovement);
-    
-    if (numOfMoves > NUM_OF_SERVOS_USED)
+    MoveID moveType = em.moveType;
+    switch (moveType)
     {
-        //Evading non controlled behaviour for extended parallel movements.
-        return;
+    case HORIZONTAL:
+    case VERTICAL:
+    case EYELID:
+        int rot = em.degrees;
+        if (usedServo[moveType].read() != rot)
+        {
+            usedServo[moveType].write(rot);
+        }
+        break;
+    default:
+        return false;
     }
-    for (uint8_t i = 0; i < numOfMoves; i++)
+    return true;
+}
+
+int EyesHandler::Init()
+{
+    static EyeMovement initConfig[] = {
+        {EyesHandler::HORIZONTAL,
+         INIT_VALUE},
+        {EyesHandler::VERTICAL,
+         INIT_VALUE},
+        {EyesHandler::EYELID,
+         INIT_VALUE}};
+    bool initOk = true;
+    for (auto init : initConfig)
     {
-        ///TODO: Check if there's incongruencies like distinctions of NONE and VERTICAL OR HORIZONTAL.
+        initOk = initOk && EyesHandler::MoveEyes(init);
     }
-     
+
+    return initOk;
 }

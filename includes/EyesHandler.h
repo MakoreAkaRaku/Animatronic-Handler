@@ -1,20 +1,17 @@
 #pragma once
 #include "utils.h"
 #include <Servo.h>
-#include <stdio.h>
-
 /// @brief Class to handle the eyes movement.
 class EyesHandler
 {
-  private:
+private:
   /// @brief
   /// Number of Servos used to handle the entire eyes behaviour.
-  static const uint8_t NUM_OF_SERVOS_USED = 3;
-  public:
-  
+  static const uint8_t NUM_OF_SERVOS_USED = 2;
+
+public:
   enum MoveID
   {
-    NONE=0,
     HORIZONTAL,
     VERTICAL,
     EYELID
@@ -23,18 +20,23 @@ class EyesHandler
   struct EyeMovement
   {
     MoveID moveType;
-    uint8_t degree;
+    int degrees;
   };
 
   EyesHandler() = delete;
   ~EyesHandler() = delete;
-  static void MoveEyes(EyeMovement movements[]);
+  static bool MoveEyes(EyeMovement em);
   static bool Attach(uint8_t pinIds[NUM_OF_SERVOS_USED]);
   static bool Dettach();
+  static int Init();
   /// @brief Checks if handler is available.
   /// @return true if is available, otherwise false.
   static bool IsAvailable();
-  private:
+
+private:
+  static const int MAX_H = 130, MAX_V = 115;//,MAX_EL;
+  static const int MIN_H = 60, MIN_V = 75;//,MIN_EL;
+  static const int INIT_VALUE = 90;
   static bool isAvailable;
   // First idx is de horizontal servo controller.
   // Second idx is the vertical servo controller.
