@@ -7,7 +7,7 @@ class EyesHandler
 private:
   /// @brief
   /// Number of Servos used to handle the entire eyes behaviour.
-  static const uint8_t NUM_OF_SERVOS_USED = 2;
+  static const uint8_t NUM_OF_SERVOS_USED = 3;
 
 public:
   enum MoveID
